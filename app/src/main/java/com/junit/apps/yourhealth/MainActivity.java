@@ -71,19 +71,28 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 view.getContext().startActivity(intent);
             }
-                return true;
+            return true;
+        }
+
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String
+                failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+            layout.setVisibility(View.VISIBLE);
+            webview.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
+
+        }
+
+    }
+
+        @Override
+    public void onBackPressed() {
+            if (webview.canGoBack()) {
+                webview.goBack();
+            } else {
+                super.onBackPressed();
             }
-
-
-            @Override
-            public void onReceivedError (WebView view,int errorCode, String description, String
-            failingUrl){
-                super.onReceivedError(view, errorCode, description, failingUrl);
-                layout.setVisibility(View.VISIBLE);
-                webview.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
-
-            }
-
         }
     }
